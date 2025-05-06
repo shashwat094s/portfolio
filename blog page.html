@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cosmic Blog</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #000015, #000);
+      color: white;
+      overflow-x: hidden;
+    }
+
+    header {
+      background-color: #0a0a23;
+      padding: 1rem 2rem;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #0ff;
+    }
+
+    nav a {
+      color: #0af;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    canvas {
+      display: block;
+      width: 100%;
+      height: 100vh;
+      background: radial-gradient(ellipse at center, #000 60%, #111);
+    }
+
+    .blog-section {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    .blog-section h2 {
+      color: #0ff;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+    }
+
+    .blog-section p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: #ddd;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #0a0a23;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🌌 Cosmic Blog</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#blog">Blog</a>
+    </nav>
+  </header>
+
+  <canvas id="solarCanvas"></canvas>
+
+  <section class="blog-section" id="blog">
+    <h2>About Space</h2>
+    <p>
+      Space is a vast and mysterious expanse that begins just beyond the edge of Earth's atmosphere. It contains everything in our universe — from tiny particles to massive galaxies.
+    </p>
+    <p>
+      Our solar system, part of the Milky Way galaxy, includes the Sun and everything bound to it: planets, moons, comets, and asteroids. Each planet follows a unique orbit influenced by gravity.
+    </p>
+    <p>
+      Scientists use telescopes and probes to explore these celestial bodies, helping us understand the origins of the universe and the potential for life beyond Earth.
+    </p>
+  </section>
+
+  <footer>
+    &copy; 2024 Cosmic Blog. All rights reserved.
+  </footer>
+
+  <script>
+    const canvas = document.getElementById('solarCanvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    const planets = [
+      { radius: 10, orbit: 80, color: 'red', speed: 0.02 },
+      { radius: 12, orbit: 140, color: 'orange', speed: 0.015 },
+      { radius: 14, orbit: 200, color: 'blue', speed: 0.012 },
+      { radius: 16, orbit: 260, color: 'lightblue', speed: 0.009 },
+      { radius: 18, orbit: 340, color: 'brown', speed: 0.006 }
+    ];
+
+    function drawSun() {
+      let gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 50);
+      gradient.addColorStop(0, "#fffacd");
+      gradient.addColorStop(1, "#ffb300");
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, 40, 0, 2 * Math.PI);
+      ctx.fillStyle = gradient;
+      ctx.shadowColor = "yellow";
+      ctx.shadowBlur = 30;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+    }
+
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawSun();
+
+      const time = Date.now() * 0.001;
+
+      planets.forEach((planet, i) => {
+        const angle = time * planet.speed + i;
+        const x = centerX + Math.cos(angle) * planet.orbit;
+        const y = centerY + Math.sin(angle) * planet.orbit * 0.6; // Elliptical to simulate 3D
+        const scale = 1 + 0.3 * (y - centerY) / canvas.height;
+
+        ctx.beginPath();
+        ctx.arc(x, y, planet.radius * scale, 0, 2 * Math.PI);
+        ctx.fillStyle = planet.color;
+        ctx.shadowColor = planet.color;
+        ctx.shadowBlur = 15;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+</body>
+</html>

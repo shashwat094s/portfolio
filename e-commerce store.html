@@ -1,0 +1,151 @@
+<!-- Start of working HTML storefront with proper image links -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Storefront</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    header {
+      background-color: #111827;
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+    }
+
+    .store {
+      padding: 2rem;
+      max-width: 1200px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .product {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s ease;
+    }
+
+    .product:hover {
+      transform: scale(1.03);
+    }
+
+    .product img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .product-details {
+      padding: 1rem;
+      flex-grow: 1;
+    }
+
+    .product-details h3 {
+      margin: 0.2rem 0;
+      font-size: 1.2rem;
+    }
+
+    .product-details p {
+      font-size: 0.9rem;
+      color: #666;
+    }
+
+    .price {
+      font-weight: bold;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+      color: #000;
+    }
+
+    .btn {
+      background-color: #ff6b6b;
+      color: white;
+      padding: 0.7rem 1rem;
+      margin: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #e65050;
+    }
+
+    @media (max-width: 600px) {
+      header {
+        font-size: 1.5rem;
+      }
+
+      .store {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    🛒 Online Storefront
+  </header>
+
+  <div class="store">
+    <div class="product">
+      <img src="https://m.media-amazon.com/images/I/71g6HFh3g1L._AC_UY1000_.jpg" alt="Sneakers"/>
+      <div class="product-details">
+        <h3>Classic Sneakers</h3>
+        <p>Comfortable & stylish sneakers for daily wear.</p>
+        <div class="price">₹1,499</div>
+      </div>
+      <button class="btn">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://api.ecom.longines.com/media/catalog/product/w/a/watch-collection-longines-elegant-collection-l4-910-4-57-6-1733402405-thumbnail.png?w=2560" alt="Watch"/>
+      <div class="product-details">
+        <h3>Elegant Watch</h3>
+        <p>Luxury wristwatch with leather strap.</p>
+        <div class="price">₹2,999</div>
+      </div>
+      <button class="btn">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://rukminim2.flixcart.com/image/850/1000/xif0q/rucksack/h/r/b/-original-imaghbkftehsdynn.jpeg?q=90&crop=false" alt="Backpack"/>
+      <div class="product-details">
+        <h3>Travel Backpack</h3>
+        <p>Water-resistant backpack for adventures.</p>
+        <div class="price">₹999</div>
+      </div>
+      <button class="btn">Add to Cart</button>
+    </div>
+
+    <div class="product">
+      <img src="https://media.istockphoto.com/id/1412240771/photo/headphones-on-white-background.jpg?s=612x612&w=0&k=20&c=DwpnlOcMzclX8zJDKOMSqcXdc1E7gyGYgfX5Xr753aQ=" alt="Headphones"/>
+      <div class="product-details">
+        <h3>Wireless Headphones</h3>
+        <p>Experience high-quality, noise-free sound.</p>
+        <div class="price">₹1,899</div>
+      </div>
+      <button class="btn">Add to Cart</button>
+    </div>
+  </div>
+
+</body>
+</html>

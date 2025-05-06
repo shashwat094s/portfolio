@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Weather App</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #74ebd5, #ACB6E5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+    }
+
+    .weather-app {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      text-align: center;
+      width: 300px;
+    }
+
+    input {
+      padding: 0.6rem;
+      border: none;
+      border-radius: 0.5rem;
+      width: 80%;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 0.6rem 1rem;
+      background: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .weather-result {
+      margin-top: 1.2rem;
+    }
+
+    .weather-result p {
+      margin: 0.3rem 0;
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🌤️ Weather App</h1>
+
+  <div class="weather-app">
+    <input type="text" id="inputField" placeholder="Enter city or PIN code" />
+    <button onclick="getWeather()">Get Weather</button>
+
+    <div class="weather-result" id="weatherResult"></div>
+  </div>
+
+  <footer>&copy; 2024 WeatherApp</footer>
+
+  <script>
+    const API_KEY = "bd5e378503939ddaee76f12ad7a97608"; // Replace with your OpenWeatherMap API key
+
+    async function getWeather() {
+      const input = document.getElementById("inputField").value.trim();
+      const resultDiv = document.getElementById("weatherResult");
+
+      if (!input) {
+        resultDiv.innerHTML = "<p>Please enter a city or PIN code.</p>";
+        return;
+      }
+
+      resultDiv.innerHTML = "<p>Loading...</p>";
+
+      // Detect if input is a 6-digit Indian PIN code
+      const isPincode = /^\d{6}$/.test(input);
+      const query = isPincode
+        ? `zip=${input},IN`
+        : `q=${encodeURIComponent(input)}`;
+
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?${query}&appid=${API_KEY}&units=metric`
+        );
+        const data = await response.json();
+
+        if (data.cod !== 200) {
+          resultDiv.innerHTML = `<p>⚠️ ${data.message}</p>`;
+          return;
+        }
+
+        const { name, main, weather, wind } = data;
+        resultDiv.innerHTML = `
+          <h3>${name}</h3>
+          <p>🌡️ Temp: ${main.temp}°C</p>
+          <p>🌥️ Condition: ${weather[0].main}</p>
+          <p>💧 Humidity: ${main.humidity}%</p>
+          <p>🌬️ Wind: ${wind.speed} m/s</p>
+        `;
+      } catch (error) {
+        resultDiv.innerHTML = "<p>❌ Error fetching data. Please try again.</p>";
+      }
+    }
+  </script>
+
+</body>
+</html>
