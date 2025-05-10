@@ -113,13 +113,12 @@
     const centerY = canvas.height / 2;
 
     const planets = [
-      { radius: 10, orbit: 80, color: 'red', speed: 0.02 },
-      { radius: 12, orbit: 140, color: 'orange', speed: 0.015 },
-      { radius: 14, orbit: 200, color: 'blue', speed: 0.012 },
-      { radius: 16, orbit: 260, color: 'lightblue', speed: 0.009 },
-      { radius: 18, orbit: 340, color: 'brown', speed: 0.006 }
-    ];
-
+  { radius: 10, orbit: 80, color: 'red', speed: 0.05 }, // Increased speed
+  { radius: 12, orbit: 140, color: 'orange', speed: 0.04 }, // Increased speed
+  { radius: 14, orbit: 200, color: 'blue', speed: 0.03 }, // Increased speed
+  { radius: 16, orbit: 260, color: 'lightblue', speed: 0.02 }, // Increased speed
+  { radius: 18, orbit: 340, color: 'brown', speed: 0.01 } // Increased speed
+];
     function drawSun() {
       let gradient = ctx.createRadialGradient(centerX, centerY, 10, centerX, centerY, 50);
       gradient.addColorStop(0, "#fffacd");
